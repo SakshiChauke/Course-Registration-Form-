@@ -1,0 +1,104 @@
+#include <stdio.h>
+
+// Structure to hold user registration data
+struct User {
+    char name[100];
+    char email[100];
+    char password[50];
+    char phone[20];
+    char paymentOption[20];
+};
+
+// Function to show payment details based on the payment method selected
+void showPaymentDetails(char* paymentOption);
+
+int main() {
+    struct User user;
+    int choice;
+
+    // Displaying a header for registration
+    printf("*************************************\n");
+    printf("    Welcome to the Registration System\n");
+    printf("*************************************\n\n");
+
+    // Taking input for registration
+
+    // Get user's name
+    printf("Enter your Full Name: ");
+    scanf("%[^\n]%*c", user.name);  // %[^\n] reads until newline, %*c consumes newline
+
+    // Get user's email
+    printf("Enter your Email: ");
+    scanf("%[^\n]%*c", user.email);  // %[^\n] reads until newline, %*c consumes newline
+
+    // Get user's password
+    printf("Enter your Password: ");
+    scanf("%[^\n]%*c", user.password);  // %[^\n] reads until newline, %*c consumes newline
+
+    // Get user's phone number
+    printf("Enter your Phone Number: ");
+    scanf("%[^\n]%*c", user.phone);  // %[^\n] reads until newline, %*c consumes newline
+
+    // Display payment options
+    printf("\nSelect your Payment Option:\n");
+    printf("1. Credit Card\n");
+    printf("2. PayPal\n");
+    printf("Enter your choice (1 or 2): ");
+    scanf("%d", &choice);
+    getchar(); // Consume the newline left by scanf
+
+    if (choice == 1) {
+        // Assign the payment option
+        char creditCard[] = "Credit Card";
+        int i;
+        for (i = 0; creditCard[i] != '\0'; i++) {
+            user.paymentOption[i] = creditCard[i];
+        }
+        user.paymentOption[i] = '\0';  // Null-terminate the string
+    } else if (choice == 2) {
+        // Assign the payment option
+        char paypal[] = "PayPal";
+        int i;
+        for (i = 0; paypal[i] != '\0'; i++) {
+            user.paymentOption[i] = paypal[i];
+        }
+        user.paymentOption[i] = '\0';  // Null-terminate the string
+    } else {
+        printf("Invalid choice. Exiting program...\n");
+        return 0; // Exit the program
+    }
+
+    // Display user registration details
+    printf("\nRegistration Successful!\n");
+    printf("Here are the details you entered:\n");
+    printf("Name: %s\n", user.name);
+    printf("Email: %s\n", user.email);
+    printf("Phone: %s\n", user.phone);
+    printf("Payment Option: %s\n", user.paymentOption);
+
+    // Show relevant payment details based on the selected payment option
+    showPaymentDetails(user.paymentOption);
+
+    return 0;
+}
+
+// Function to show payment details based on the payment method selected
+void showPaymentDetails(char* paymentOption) {
+    if (paymentOption[0] == 'C') { // Check if it's "Credit Card"
+        printf("\nFor Credit Card payment, please enter the following details:\n");
+        char cardNumber[20], expiryDate[10], cvv[4];
+        printf("Card Number: ");
+        scanf("%s", cardNumber);
+        printf("Expiry Date (MM/YY): ");
+        scanf("%s", expiryDate);
+        printf("CVV: ");
+        scanf("%s", cvv);
+        printf("\nThank you! Your Credit Card payment is being processed.\n");
+    } else if (paymentOption[0] == 'P') { // Check if it's "PayPal"
+        printf("\nFor PayPal payment, please enter your PayPal email:\n");
+        char paypalEmail[100];
+        printf("PayPal Email: ");
+        scanf("%s", paypalEmail);
+        printf("\nThank you! Your PayPal payment is being processed.\n");
+    }
+}
